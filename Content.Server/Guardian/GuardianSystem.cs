@@ -4,7 +4,7 @@ using Content.Server.Body.Systems;
 using Content.Server.Popups;
 using Content.Shared._Goobstation.Wizard.Guardian;
 using Content.Shared.Actions;
-using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Guardian;
@@ -297,8 +297,8 @@ namespace Content.Server.Guardian
             if (args.DamageDelta == null || component.Host == null || component.DamageShare == 0)
                 return;
 
-            _damageSystem.TryChangeDamage(
-                component.Host,
+            _damageSystem.ChangeDamage(
+                component.Host.Value,
                 args.DamageDelta * component.DamageShare,
                 origin: args.Origin,
                 ignoreResistances: true,
@@ -355,8 +355,9 @@ namespace Content.Server.Guardian
             if (TerminatingOrDeleted(guardianUid) || TerminatingOrDeleted(hostUid))
                 return;
 
-            if (!Resolve(hostUid, ref hostComponent, ref hostXform) ||
-                !Resolve(guardianUid, ref guardianComponent, ref guardianXform))
+            // Goob - Fix (host may lack component)
+            if (!Resolve(hostUid, ref hostComponent, ref hostXform, false) ||
+                !Resolve(guardianUid, ref guardianComponent, ref guardianXform, false))
             {
                 return;
             }
