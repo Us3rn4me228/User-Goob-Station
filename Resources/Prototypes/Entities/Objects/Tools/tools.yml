@@ -611,6 +611,12 @@
   - type: StaticPrice
     price: 25
   - type: Shovel
+  # Goobstation - tile digging
+  - type: Tool
+    qualities:
+    - Digging
+  - type: TileDigging
+    delay: 2
 
 - type: entity
   parent: BaseItem

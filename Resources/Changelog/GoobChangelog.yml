@@ -24865,3 +24865,12 @@ Entries:
       message: Fixed vox and plasmaman getting disease
   id: 2849
   time: '2026-09-01T08:04:22.0000000+00:00'
+- author: Us3rn4me228
+  changes:
+    - type: Add
+      message: >-
+        Shovels and spades can now dig up natural planet tiles. Digging turns
+        grass into dirt, snow into dug up snow and sand into packed sand, and can
+        turn up loose loot such as sand, salt and the occasional ore.
+  id: 2850
+  time: '2026-10-01T00:00:00.0000000+00:00'

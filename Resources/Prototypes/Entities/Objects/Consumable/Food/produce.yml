@@ -2654,6 +2654,10 @@
   - type: FoodSequenceElement
     entries:
       CottonBurger: CottonBol
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 200
+
 
 - type: entity
   name: pyrotton boll

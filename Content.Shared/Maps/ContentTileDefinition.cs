@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared.Atmos;
+using Content.Shared.EntityTable.EntitySelectors; // Goobstation - tile digging
 using Content.Shared.Light.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Tools;
@@ -137,6 +138,41 @@ namespace Content.Shared.Maps
         /// Is this tile immune to RCD deconstruct.
         /// </summary>
         [DataField("indestructible")] public bool Indestructible = false;
+
+        // - Goobstation - tile digging -
+        /// <summary>
+        /// Can this tile be dug up with a digging tool, e.g. a shovel?
+        /// Handled by the tile digging system.
+        /// </summary>
+        [DataField]
+        public bool Diggable = false;
+
+        /// <summary>
+        /// Multiplies the digging tool's delay when digging this tile.
+        /// </summary>
+        [DataField]
+        public float DigTimeMultiplier = 1f;
+
+        /// <summary>
+        /// The tile this one turns into when dug up. Falls back to <see cref="BaseTurf"/> if not set.
+        /// If neither is set the tile can't be dug up.
+        /// </summary>
+        [DataField]
+        public ProtoId<ContentTileDefinition>? DigResultTile;
+
+        /// <summary>
+        /// Loot spawned on top of the tile when it's dug up.
+        /// </summary>
+        [DataField]
+        public EntityTableSelector? DigLoot;
+
+        /// <summary>
+        /// Whether digging this tile also spawns its <see cref="ItemDropPrototypeName"/>.
+        /// Only enable this on tiles that define a sensible itemDrop, otherwise you'll get steel floor tiles.
+        /// </summary>
+        [DataField]
+        public bool DigSpawnsItem = false;
+        // - End Goobstation -
 
         public void AssignTileId(ushort id)
         {

@@ -152,6 +152,13 @@
     storedRotation: -45
   - type: Shovel
     speedModifier: 0.75 # slower at digging than a full-sized shovel
+  # Goobstation - tile digging
+  - type: Tool
+    qualities:
+    - Digging
+    speedModifier: 0.75
+  - type: TileDigging
+    delay: 2.5
   - type: PhysicalComposition
     materialComposition:
       Steel: 100

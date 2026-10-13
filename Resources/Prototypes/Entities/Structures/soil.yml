@@ -1,9 +1,6 @@
 # SPDX-License-Identifier: MIT
-
 - type: entity
-  id: hydroponicsSoil
-  name: soil
-  description: A mix of organic matter and minerals creating a soil to grow your plant in space. Seems to be dry.
+  id: BaseSoil
   placement:
     mode: SnapgridCenter
   components:
@@ -34,6 +31,17 @@
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
+  - type: Transform
+    anchored: true
+
+- type: entity
+  parent: BaseSoil
+  id: hydroponicsSoil
+  name: soil
+  description: A mix of organic matter and minerals creating a soil to grow your plant in space. Seems to be dry.
+  placement:
+    mode: SnapgridCenter
+  components:
   - type: Sprite
     sprite: Structures/Hydroponics/misc.rsi
     state: soil
@@ -47,8 +55,6 @@
   - type: RefillableSolution
     solution: soil
     maxRefill: 50
-  - type: Transform
-    anchored: true
   - type: Reactive
     reactions:
     - reagents: [Water]
@@ -76,3 +82,56 @@
   - type: PlantHolder
     waterLevel: 0
     nutritionLevel: 0
+
+##TO-DO: place it into proper folder later
+- type: entity
+  name: clump of soil
+  parent: BaseItem
+  id: ClumpSoil
+  description: A handful of soil. Doesn't seem useful... yet.
+  components:
+  - type: Sprite
+    sprite: Structures/Hydroponics/misc.rsi
+    state: soilclump
+  - type: SpawnAfterInteract
+    prototype: PileSoil
+    doAfter: 1
+    removeOnInteract: true
+  - type: Tag
+    tags:
+    - SoilClump
+
+- type: entity
+  name: soil pile
+  parent: BaseSoil
+  id: PileSoil
+  description: Just add another two clumps.
+  components:
+  - type: Sprite
+    sprite: Structures/Hydroponics/misc.rsi
+    state: soilpile
+    noRot: true
+  - type: Construction
+    graph: SoilPile
+    node: pileSoil
+
+- type: constructionGraph
+  id: SoilPile
+  start: pileSoil
+  graph:
+  - node: pileSoil
+    entity: PileSoil
+    edges:
+    - to: done
+      steps:
+      - tag: SoilClump
+        doAfter: 2
+      - tag: SoilClump
+        doAfter: 2
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      - !type:SpawnPrototype
+        prototype: hydroponicsSoil
+      - !type:DeleteEntity {}
+  - node: done
