@@ -31,7 +31,6 @@ namespace Content.Shared._RIM.Tiles;
 public sealed class TileDiggingSystem : EntitySystem
 {
     [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
@@ -156,7 +155,7 @@ public sealed class TileDiggingSystem : EntitySystem
         grid = default!;
         tileRef = default;
 
-        if (!_mapManager.TryFindGridAt(_transform.ToMapCoordinates(coordinates), out var foundGridUid, out var foundGrid))
+        if (!_maps.TryFindGridAt(_transform.ToMapCoordinates(coordinates), out var foundGridUid, out var foundGrid))
             return false;
 
         gridUid = foundGridUid;
