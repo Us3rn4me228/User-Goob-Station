@@ -16,10 +16,6 @@ using Robust.Shared.Containers;
 
 namespace Content.Server._RIM.Botany;
 
-/// <summary>
-/// Handles the seed press: inserting produce into its storage container,
-/// then extracting exactly one seed packet per piece of produce via a do-after.
-/// </summary>
 public sealed class SeedPressSystem : EntitySystem
 {
     [Dependency] private readonly SharedContainerSystem _container = default!;
@@ -51,9 +47,6 @@ public sealed class SeedPressSystem : EntitySystem
         return _container.EnsureContainer<Container>(uid, comp.ContainerId);
     }
 
-    /// <summary>
-    /// Inserting produce into the press, like the kitchen reagent grinder.
-    /// </summary>
     private void OnInteractUsing(EntityUid uid, SeedPressComponent comp, InteractUsingEvent args)
     {
         if (args.Handled || comp.IsProcessing)
@@ -79,9 +72,6 @@ public sealed class SeedPressSystem : EntitySystem
         args.Handled = true;
     }
 
-    /// <summary>
-    /// Empty hand click on the press starts the extraction do-after.
-    /// </summary>
     private void OnActivate(EntityUid uid, SeedPressComponent comp, ActivateInWorldEvent args)
     {
         if (args.Handled)
@@ -122,9 +112,6 @@ public sealed class SeedPressSystem : EntitySystem
         args.Handled = true;
     }
 
-    /// <summary>
-    /// Spawns exactly one seed packet per piece of produce, then deletes the produce.
-    /// </summary>
     private void OnDoAfter(EntityUid uid, SeedPressComponent comp, SeedPressDoAfterEvent args)
     {
         comp.IsProcessing = false;
@@ -175,9 +162,6 @@ public sealed class SeedPressSystem : EntitySystem
         args.PushMarkup(Loc.GetString("seed-press-examine", ("count", container.ContainedEntities.Count)));
     }
 
-    /// <summary>
-    /// Verb to dump produce back out without processing it.
-    /// </summary>
     private void OnGetVerbs(EntityUid uid, SeedPressComponent comp, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || comp.IsProcessing)

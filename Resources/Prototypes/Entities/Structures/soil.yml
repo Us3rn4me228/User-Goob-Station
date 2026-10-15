@@ -1,6 +1,9 @@
 # SPDX-License-Identifier: MIT
 - type: entity
   id: BaseSoil
+  abstract: true
+  name: soil-name
+  description: soil-desc
   placement:
     mode: SnapgridCenter
   components:
@@ -37,8 +40,8 @@
 - type: entity
   parent: BaseSoil
   id: hydroponicsSoil
-  name: soil
-  description: A mix of organic matter and minerals creating a soil to grow your plant in space. Seems to be dry.
+  name: soil-name
+  description: soil-desc
   placement:
     mode: SnapgridCenter
   components:
@@ -69,8 +72,8 @@
 - type: entity
   parent: hydroponicsSoil
   id: FungalSoil
-  name: fungal soil
-  description: A mix of organic matter and fungal root creating a soil to grow your plant in space. Seems to be dry.
+  name: fungal-soil-name
+  description: soil-desc
   components:
   - type: Construction
     graph: Soil
@@ -85,10 +88,10 @@
 
 ##TO-DO: place it into proper folder later
 - type: entity
-  name: clump of soil
   parent: BaseItem
   id: ClumpSoil
-  description: A handful of soil. Doesn't seem useful... yet.
+  name: clump-soil-name
+  description: clump-soil-desc
   components:
   - type: Sprite
     sprite: Structures/Hydroponics/misc.rsi
@@ -102,10 +105,10 @@
     - SoilClump
 
 - type: entity
-  name: soil pile
   parent: BaseSoil
   id: PileSoil
-  description: Just add another two clumps.
+  name: pile-soil-name
+  description: pile-soil-desc
   components:
   - type: Sprite
     sprite: Structures/Hydroponics/misc.rsi
@@ -113,16 +116,16 @@
     noRot: true
   - type: Construction
     graph: SoilPile
-    node: pileSoil
+    node: start
 
 - type: constructionGraph
   id: SoilPile
-  start: pileSoil
+  start: start
   graph:
-  - node: pileSoil
+  - node: start
     entity: PileSoil
     edges:
-    - to: done
+    - to: pileSoil
       steps:
       - tag: SoilClump
         doAfter: 2
@@ -131,7 +134,14 @@
       completed:
       - !type:SnapToGrid
         southRotation: true
+    - to: done
+      steps:
+      - tag: SoilClump
+        doAfter: 2
+      completed:
       - !type:SpawnPrototype
         prototype: hydroponicsSoil
       - !type:DeleteEntity {}
+  - node: pileSoil
+    entity: PileSoil
   - node: done

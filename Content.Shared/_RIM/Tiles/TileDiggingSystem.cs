@@ -23,11 +23,6 @@ using Robust.Shared.Random;
 
 namespace Content.Shared._RIM.Tiles;
 
-/// <summary>
-/// Allows tools with <see cref="TileDiggingComponent"/> (e.g. shovels) to dig up natural planet tiles.
-/// Digging turns the tile into another one (grass into dirt, snow into dug up snow, ...) and can spawn
-/// loot. Everything is configured with the digging data fields on <see cref="ContentTileDefinition"/>.
-/// </summary>
 public sealed class TileDiggingSystem : EntitySystem
 {
     [Dependency] private readonly INetManager _net = default!;
@@ -59,7 +54,6 @@ public sealed class TileDiggingSystem : EntitySystem
         if (args.Handled || !args.CanReach)
             return;
 
-        // Only dig when clicking a tile, not when using the tool on an entity. Same as tile prying.
         if (args.Target != null && !HasComp<PuddleComponent>(args.Target))
             return;
 
@@ -123,14 +117,11 @@ public sealed class TileDiggingSystem : EntitySystem
 
         args.Handled = true;
 
-        // Tiles and spawned entities are server-authoritative. The do-after itself is predicted, so the
-        // progress bar is shown without any latency.
         if (_net.IsClient)
             return;
 
         var tileCoordinates = _maps.GridTileToLocal(gridUid, grid, tileRef.GridIndices);
 
-        // Turn the tile into the dug version and get rid of whatever was painted on top of it.
         _maps.SetTile(gridUid, grid, tileRef.GridIndices, new Tile(resultDef.TileId));
         RemoveDecals(gridUid, tileCoordinates);
 
@@ -143,9 +134,6 @@ public sealed class TileDiggingSystem : EntitySystem
             $"{ToPrettyString(args.User):player} dug up {tileDef.ID} at {tileCoordinates}");
     }
 
-    /// <summary>
-    /// Resolves the grid and tile at the given coordinates.
-    /// </summary>
     private bool TryGetTile(EntityCoordinates coordinates,
         out EntityUid gridUid,
         out MapGridComponent grid,
@@ -164,9 +152,6 @@ public sealed class TileDiggingSystem : EntitySystem
         return true;
     }
 
-    /// <summary>
-    /// Checks whether the tile can be dug up and resolves which tile it turns into.
-    /// </summary>
     private bool TryGetDiggable(TileRef tileRef,
         [NotNullWhen(true)] out ContentTileDefinition? tileDef,
         [NotNullWhen(true)] out ContentTileDefinition? resultDef)
@@ -194,7 +179,6 @@ public sealed class TileDiggingSystem : EntitySystem
         TileRef tileRef,
         EntityUid user)
     {
-        // Nothing in reach, e.g. the user walked away or a wall got in the way.
         var tileCoordinates = _maps.GridTileToLocal(gridUid, grid, tileRef.GridIndices);
         if (!_interaction.InRangeUnobstructed(user, tileCoordinates, popup: false))
             return true;
@@ -207,8 +191,6 @@ public sealed class TileDiggingSystem : EntitySystem
     {
         var speed = 1f;
 
-        // ToolComponent's modifier is a divisor, matching how tile prying works. Tools that lack it can
-        // still use their grave digging modifier.
         if (TryComp<ToolComponent>(ent, out var tool))
             speed = tool.SpeedModifier;
         else if (TryComp<ShovelComponent>(ent, out var shovel))
@@ -262,7 +244,6 @@ public sealed class TileDiggingSystem : EntitySystem
         if (string.IsNullOrEmpty(prototype))
             return;
 
-        // Scatter the loot a bit so it doesn't all end up in the exact middle of the tile.
         var loot = Spawn(prototype, coordinates.Offset(_random.NextVector2(0.3f)));
 
         Transform(loot).LocalRotation = _random.NextDouble() * Math.Tau;

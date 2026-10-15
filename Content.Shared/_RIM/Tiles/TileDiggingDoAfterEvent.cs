@@ -5,9 +5,6 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._RIM.Tiles;
 
-/// <summary>
-/// Raised on the digging tool when the digging do-after finishes or gets cancelled.
-/// </summary>
 [Serializable, NetSerializable]
 public sealed partial class TileDiggingDoAfterEvent : DoAfterEvent
 {

@@ -5,8 +5,5 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._RIM.Botany;
 
-/// <summary>
-/// Raised on the seed press when its seed extraction do-after finishes or is cancelled.
-/// </summary>
 [Serializable, NetSerializable]
 public sealed partial class SeedPressDoAfterEvent : SimpleDoAfterEvent;
