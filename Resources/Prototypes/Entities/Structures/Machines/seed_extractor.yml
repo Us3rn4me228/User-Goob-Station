@@ -2,9 +2,9 @@
 
 - type: entity
   id: SeedExtractor
-  name: seed extractor
+  name: ent-SeedExtractor
   parent: [ BaseMachinePowered, ConstructibleMachine ]
-  description: Extracts seeds from produce.
+  description: ent-SeedExtractor.desc
   components:
   - type: Sprite
     sprite: Structures/Machines/seed_extractor.rsi
@@ -42,9 +42,9 @@
 
 - type: entity
   id: SeedTable
-  name: seed table
+  name: ent-SeedTable
   parent: BaseStructure
-  description: Extracts seeds from produce.
+  description: ent-SeedExtractor.desc
   components:
   - type: Sprite
     sprite: _Goobstation/Structures/Specific/seedtable.rsi
