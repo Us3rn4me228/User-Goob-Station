@@ -40,6 +40,8 @@
 - type: entity
   parent: BaseSoil
   id: hydroponicsSoil
+  name: ent-BaseSoil
+  description: ent-BaseSoil.desc
   placement:
     mode: SnapgridCenter
   components:
@@ -71,6 +73,7 @@
   parent: hydroponicsSoil
   id: FungalSoil
   name: ent-FungalSoil
+  description: ent-BaseSoil.desc
   components:
   - type: Construction
     graph: Soil
