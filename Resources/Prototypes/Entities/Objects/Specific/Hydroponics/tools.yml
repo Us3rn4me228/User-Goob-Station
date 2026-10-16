@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: entity
-  name: mini hoe
+  name: ent-HydroponicsToolMiniHoe
   parent: BaseItem
   id: HydroponicsToolMiniHoe
-  description: It's used for removing weeds or scratching your back.
+  description: ent-HydroponicsToolMiniHoe.desc
   components:
   - type: Tag
     tags:
@@ -27,10 +27,10 @@
       Steel: 100
 
 - type: entity
-  name: plant clippers
+  name: ent-HydroponicsToolClippers
   parent: BaseItem
   id: HydroponicsToolClippers
-  description: A tool used to take samples from plants.
+  description: ent-HydroponicsToolClippers.desc
   components:
   - type: Tag
     tags:
@@ -68,10 +68,10 @@
     speedModifier: 0.25
 
 - type: entity
-  name: scythe
+  name: ent-HydroponicsToolScythe
   parent: BaseItem
   id: HydroponicsToolScythe
-  description: A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow.
+  description: ent-HydroponicsToolScythe.desc
   components:
   - type: Sharp
   - type: Sprite
@@ -96,10 +96,10 @@
       Plastic: 100
 
 - type: entity
-  name: hatchet
+  name: ent-HydroponicsToolHatchet
   parent: BaseItem
   id: HydroponicsToolHatchet
-  description: A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood.
+  description: ent-HydroponicsToolHatchet.desc
   components:
   - type: Tag
     tags:
@@ -128,10 +128,10 @@
       Steel: 100
 
 - type: entity
-  name: spade
+  name: ent-HydroponicsToolSpade
   parent: BaseItem
   id: HydroponicsToolSpade
-  description: A small tool for digging and moving dirt.
+  description: ent-HydroponicsToolSpade.desc
   components:
   - type: Tag
     tags:
@@ -152,15 +152,22 @@
     storedRotation: -45
   - type: Shovel
     speedModifier: 0.75 # slower at digging than a full-sized shovel
+  # Goobstation - tile digging
+  - type: Tool
+    qualities:
+    - Digging
+    speedModifier: 0.75
+  - type: TileDigging
+    delay: 2.5
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
 
 - type: entity
-  name: plant bag
+  name: ent-PlantBag
   id: PlantBag
   parent: BaseStorageItem
-  description: A bag for botanists to easily move their huge harvests.
+  description: ent-PlantBag.desc
   components:
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/Equipment/plant_bag.rsi

@@ -1432,6 +1432,12 @@
   id: FloorAsteroidSandBorderless
   name: tiles-asteroid-sand-borderless
   sprite: /Textures/Tiles/Asteroid/asteroid.png
+  # Goobstation - tile digging
+  diggable: true
+  digResultTile: FloorAsteroidSandDugBorderless
+  digTimeMultiplier: 1.5
+  digLoot: !type:NestedSelector
+    tableId: DigLootPlanetSand
   variants: 13
   placementVariants:
     - 0.8
@@ -1458,6 +1464,8 @@
   id: FloorAsteroidSand
   parent: FloorAsteroidSandBorderless
   name: tiles-asteroid-sand
+  # Goobstation - tile digging (inherits the rest of the digging data from the borderless parent)
+  digResultTile: FloorAsteroidSandDug
   edgeSpritePriority: 1
   edgeSprites:
     SouthEast: /Textures/Tiles/Asteroid/asteroid_single_edge.png

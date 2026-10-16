@@ -20,3 +20,10 @@
   toolName: tool-quality-painting-tool-name
   spawn: SprayPainter
   icon: { sprite: Objects/Tools/spray_painter.rsi, state: spray_painter }
+
+- type: tool
+  id: Digging
+  name: tool-quality-digging-name
+  toolName: tool-quality-digging-tool-name
+  spawn: Shovel
+  icon: { sprite: Objects/Tools/shovel.rsi, state: icon }
