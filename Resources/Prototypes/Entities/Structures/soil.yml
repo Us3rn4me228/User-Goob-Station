@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: MIT
+
 - type: entity
-  id: BaseSoil
-  abstract: true
-  name: ent-BaseSoil
-  description: ent-BaseSoil.desc
+  id: hydroponicsSoil
+  name: soil
+  description: A mix of organic matter and minerals creating a soil to grow your plant in space. Seems to be dry.
   placement:
     mode: SnapgridCenter
   components:
@@ -34,17 +34,6 @@
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-  - type: Transform
-    anchored: true
-
-- type: entity
-  parent: BaseSoil
-  id: hydroponicsSoil
-  name: ent-hydroponicsSoil
-  description: ent-hydroponicsSoil.desc
-  placement:
-    mode: SnapgridCenter
-  components:
   - type: Sprite
     sprite: Structures/Hydroponics/misc.rsi
     state: soil
@@ -58,6 +47,8 @@
   - type: RefillableSolution
     solution: soil
     maxRefill: 50
+  - type: Transform
+    anchored: true
   - type: Reactive
     reactions:
     - reagents: [Water]
@@ -72,8 +63,8 @@
 - type: entity
   parent: hydroponicsSoil
   id: FungalSoil
-  name: ent-FungalSoil
-  description: ent-FungalSoil.desc
+  name: fungal soil
+  description: A mix of organic matter and fungal root creating a soil to grow your plant in space. Seems to be dry.
   components:
   - type: Construction
     graph: Soil
@@ -85,63 +76,3 @@
   - type: PlantHolder
     waterLevel: 0
     nutritionLevel: 0
-
-##TO-DO: place it into proper folder later
-- type: entity
-  parent: BaseItem
-  id: ClumpSoil
-  name: ent-ClumpSoil
-  description: ent-ClumpSoil.desc
-  components:
-  - type: Sprite
-    sprite: Structures/Hydroponics/misc.rsi
-    state: soilclump
-  - type: SpawnAfterInteract
-    prototype: PileSoil
-    doAfter: 1
-    removeOnInteract: true
-  - type: Tag
-    tags:
-    - SoilClump
-
-- type: entity
-  parent: BaseSoil
-  id: PileSoil
-  name: ent-PileSoil
-  description: ent-PileSoil.desc
-  components:
-  - type: Sprite
-    sprite: Structures/Hydroponics/misc.rsi
-    state: soilpile
-    noRot: true
-  - type: Construction
-    graph: SoilPile
-    node: start
-
-- type: constructionGraph
-  id: SoilPile
-  start: start
-  graph:
-  - node: start
-    entity: PileSoil
-    edges:
-    - to: pileSoil
-      steps:
-      - tag: SoilClump
-        doAfter: 2
-      - tag: SoilClump
-        doAfter: 2
-      completed:
-      - !type:SnapToGrid
-        southRotation: true
-    - to: done
-      steps:
-      - tag: SoilClump
-        doAfter: 2
-      completed:
-      - !type:SpawnPrototype
-        prototype: hydroponicsSoil
-      - !type:DeleteEntity {}
-  - node: pileSoil
-    entity: PileSoil
-  - node: done
