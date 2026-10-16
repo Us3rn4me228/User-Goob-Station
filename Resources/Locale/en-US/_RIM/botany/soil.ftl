@@ -15,4 +15,6 @@ ent-ClumpSoil = clump of soil
 ent-PileSoil = soil pile
     .desc = Just add another two clumps.
 
-construction-graph-tag-soilclump = clump of soil
+ent-SoilPileDone = hydroponics soil
+
+construction-graph-tag-soil-clump = clump of soil

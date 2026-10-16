@@ -53,9 +53,9 @@
     noRot: true
   - type: Transform
     anchored: true
-  - type: Construction
-    graph: SoilPile
-    node: start
+  # - type: Construction
+  #   graph: SoilPile
+  #   node: start
 
 - type: constructionGraph
   id: SoilPile
@@ -64,23 +64,19 @@
   - node: start
     entity: PileSoil
     edges:
-    - to: pileSoil
+    - to: done
       steps:
       - tag: SoilClump
+        name: construction-graph-tag-soil-clump
         doAfter: 2
       - tag: SoilClump
+        name: construction-graph-tag-soil-clump
         doAfter: 2
       completed:
       - !type:SnapToGrid
         southRotation: true
-    - to: done
-      steps:
-      - tag: SoilClump
-        doAfter: 2
-      completed:
       - !type:SpawnPrototype
         prototype: hydroponicsSoil
       - !type:DeleteEntity {}
-  - node: pileSoil
-    entity: PileSoil
   - node: done
+    entity: hydroponicsSoil
