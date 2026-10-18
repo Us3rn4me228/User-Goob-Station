@@ -1,0 +1,18 @@
+- type: !PartialOnly entity
+  id: Shovel
+  components:
+  - type: Tool
+    qualities:
+    - Digging
+  - type: TileDigging
+    delay: 2
+
+- type: !PartialOnly entity
+  id: Spade
+  components:
+  - type: Tool
+    qualities:
+    - Digging
+    speedModifier: 0.75
+  - type: TileDigging
+    delay: 2.5

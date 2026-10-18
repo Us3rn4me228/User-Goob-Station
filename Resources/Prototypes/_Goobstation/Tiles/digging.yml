@@ -1,0 +1,91 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Loot tables for diggable planet tiles, used by the tile digging system.
+# Keep the loot cheap - digging is repeatable and meant as a way to clear ground and find small stuff.
+
+# Snow
+- type: entityTable
+  id: DigLootPlanetSnow
+  table: !type:AllSelector
+    children:
+    - id: FloorTileItemSnow
+    - id: SpaceQuartz1
+      prob: 0.08
+    - id: Coal1
+      prob: 0.05
+
+# Asteroid and desert sand
+- type: entityTable
+  id: DigLootPlanetSand
+  table: !type:AllSelector
+    children:
+    - id: FloorTileItemAstroAsteroidSand
+    - id: Salt1
+      prob: 0.08
+    - id: SpaceQuartz1
+      prob: 0.05
+    - id: SteelOre1
+      prob: 0.02
+
+# Desert
+- type: entityTable
+  id: DigLootPlanetDesert
+  table: !type:AllSelector
+    children:
+    - id: FloorTileItemDesertAstroSand
+    - id: Salt1
+      prob: 0.06
+    - id: SpaceQuartz1
+      prob: 0.04
+
+# Lavaland ash
+- type: entityTable
+  id: DigLootPlanetAsh
+  table: !type:AllSelector
+    children:
+    - id: Coal1
+    - id: SpaceQuartz1
+      prob: 0.04
+
+# Grass
+- type: entityTable
+  id: DigLootGrass
+  table: !type:AllSelector
+    children:
+    - id: ClumpSoil
+      prob: 0.1
+    - !type:GroupSelector
+      prob: 0.25
+      children:
+        # Common seeds
+      - id: FoodPoppy
+        weight: 3
+      - id: FoodCarrot
+        weight: 4
+      - id: CottonBol
+        weight: 3
+      - id: WheatBushel
+        weight: 5
+      - id: FoodOnion
+        weight: 4
+      - id: FoodPotato
+        weight: 4
+      - id: FoodGarlic
+        weight: 4
+      - id: FoodLily
+        weight: 3
+      # Rare seeds
+      - id: FoodCabbage
+        weight: 2
+      - id: FoodBerries
+        weight: 1
+      - id: FoodTomato
+        weight: 2
+      - id: FoodApple
+        weight: 2
+      - id: FoodChiliPepper
+        weight: 2
+      - id: Nettle
+        weight: 1
+      - id: FoodMushroom
+        weight: 2

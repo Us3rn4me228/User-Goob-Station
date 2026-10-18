@@ -21,6 +21,12 @@
   - 1.0
   - 1.0
   - 1.0
+  # Goobstation - tile digging
+  diggable: true
+  digResultTile: FloorAsteroidSandBorderless
+  digTimeMultiplier: 1.5
+  itemDrop: ClumpSoil
+  digSpawnsItem: true
 
 # Desert
 - type: tile
@@ -36,6 +42,12 @@
   - 1.0
   - 1.0
   - 1.0
+  # Goobstation - tile digging
+  diggable: true
+  digResultTile: FloorPlanetDirt
+  digTimeMultiplier: 1.5
+  digLoot: !type:NestedSelector
+    tableId: DigLootPlanetDesert
 
 - type: tile
   id: FloorLowDesert
@@ -49,6 +61,12 @@
   - 1.0
   - 1.0
   - 1.0
+  # Goobstation - tile digging
+  diggable: true
+  digResultTile: FloorPlanetDirt
+  digTimeMultiplier: 1.5
+  digLoot: !type:NestedSelector
+    tableId: DigLootPlanetDesert
 
 # Grass
 - type: tile
@@ -75,6 +93,15 @@
   baseTurf: FloorPlanetDirt
   footstepSounds:
     collection: FootstepGrass
+  # Goobstation - tile digging
+  diggable: true
+  digResultTile: FloorPlanetDirt
+  digTimeMultiplier: 1.5
+  itemDrop: FloorTileItemGrass
+  digSpawnsItem: true
+  digLoot: !type:NestedSelector
+    tableId: DigLootGrass
+
 
 # Lava
 - type: tile
@@ -112,6 +139,12 @@
     West: /Textures/Tiles/Planet/Snow/snow_double_edge_west.png
   footstepSounds:
     collection: FootstepSnow
+  # Goobstation - tile digging
+  diggable: true
+  digResultTile: FloorSnowDug
+  digTimeMultiplier: 1.5
+  digLoot: !type:NestedSelector
+    tableId: DigLootPlanetSnow
 
 # Ice
 - type: tile

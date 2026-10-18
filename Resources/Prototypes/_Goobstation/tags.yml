@@ -784,4 +784,7 @@
   id: ContractorUplink
 
 - type: Tag
+  id: SoilClump
+  
+- type: Tag
   id: XenobioSlimeFavoriteFood

@@ -1,0 +1,6 @@
+- type: !PartialOnly entity
+  id: CottonBol
+  components:
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 200

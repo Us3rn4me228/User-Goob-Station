@@ -23,6 +23,12 @@
       "name": "soil"
     },
     {
+      "name": "soilclump"
+    },
+    {
+      "name": "soilpile"
+    },
+    {
       "name": "spaceworms",
       "delays": [
         [

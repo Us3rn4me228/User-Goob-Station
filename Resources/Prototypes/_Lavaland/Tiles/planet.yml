@@ -32,6 +32,12 @@
   heatCapacity: 10000
   weather: true
   indestructible: true
+  # Goobstation - tile digging
+  diggable: true
+  digResultTile: FloorBasaltLavaland
+  digTimeMultiplier: 1.5
+  digLoot: !type:NestedSelector
+    tableId: DigLootPlanetAsh
 
 - type: tile
   id: FloorPlanetGrassLight
@@ -59,3 +65,8 @@
   heatCapacity: 10000
   weather: true
   indestructible: true
+  # Goobstation - tile digging
+  diggable: true
+  digResultTile: FloorBasaltLavaland
+  digTimeMultiplier: 1.5
+  digSpawnsItem: true

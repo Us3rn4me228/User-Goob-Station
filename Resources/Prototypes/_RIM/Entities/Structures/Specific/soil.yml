@@ -1,0 +1,81 @@
+- type: entity
+  parent: BaseItem
+  id: ClumpSoil
+  name: clump of soil
+  description: A handful of soil. Doesn't seem useful... yet.
+  components:
+  - type: Sprite
+    sprite: Structures/Hydroponics/misc.rsi
+    state: soilclump
+  - type: SpawnAfterInteract
+    prototype: hydroponicsSoil
+    doAfter: 2.5
+    removeOnInteract: true
+
+## cut content
+
+# - type: entity
+#   id: PileSoil
+#   name: soil pile
+#   description: Just add another two clumps.
+#   components:
+#   - type: Clickable
+#   - type: InteractionOutline
+#   - type: Physics
+#     bodyType: Static
+#   - type: Fixtures
+#     fixtures:
+#       fix1:
+#         shape:
+#           !type:PhysShapeAabb
+#           bounds: "-0.45,-0.45,0.45,0.1"
+#         density: 190
+#         hard: false
+#         mask:
+#         - FullTileMask
+#         layer:
+#         - FullTileMask
+#   - type: Damageable
+#     damageContainer: Inorganic
+#     damageModifierSet: Metallic
+#   - type: Destructible
+#     thresholds:
+#     - trigger:
+#         !type:DamageTrigger
+#         damage: 50
+#       behaviors:
+#       - !type:DoActsBehavior
+#         acts: ["Destruction"]
+#   - type: Sprite
+#     sprite: Structures/Hydroponics/misc.rsi
+#     state: soilpile
+#     noRot: true
+#   - type: Transform
+#     anchored: true
+#   - type: Construction
+#     graph: SoilPile
+#     node: start
+
+# - type: constructionGraph
+#   id: SoilPile
+#   start: start
+#   graph:
+#   - node: start
+#     entity: PileSoil
+#     edges:
+#     - to: done
+#       steps:
+#       - tag: SoilClump
+#         name: clump of soil
+#         doAfter: 2
+#       - tag: SoilClump
+#         name: clump of soil
+#         doAfter: 2
+#       completed:
+#       - !type:SnapToGrid
+#         southRotation: true
+#       - !type:SpawnPrototype
+#         prototype: hydroponicsSoil
+#       - !type:DeleteEntity {}
+#   - node: done
+#     entity: hydroponicsSoil

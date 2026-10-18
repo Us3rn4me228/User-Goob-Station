@@ -1,0 +1,55 @@
+# Partial prototypes для User-Goob Station.
+#
+# Файлы в этой директории ЗАРЕГИСТРИРОВАНЫ как partial (см. Content.Shared/Entry/EntryPoint.cs,
+# PartialDirectory). Любой прототип здесь с совпадающими type + id МОДИФИЦИРУЕТ оригинал
+# вместо ошибки "Duplicate ID". Оригинал может лежать где угодно в /Prototypes/ — порядок
+# загрузки не важен: partial-и всегда применяются после обычных файлов.
+#
+# ПРИМЕР 1: добавить компонент и изменить поле, не трогая остальной прототип.
+# Раскомментируйте, поправьте id/поля под свою задачу:
+#
+# - type: !PartialOnly entity
+#   id: MobHuman
+#   components:
+#   - type: MyNewComponent
+#     someField: 5
+#
+# !PartialOnly означает "не создавать прототип, если оригинала нет" — если базовый
+# прототип удалён/переименован, partial молча пропустится, а не упадёт при загрузке.
+# Без !PartialOnly partial без оригинала создаст новый прототип из изменённых полей.
+#
+# ПРИМЕР 2: удалить компонент из прототипа.
+#
+# - type: !PartialOnly entity
+#   id: SomeEntity
+#   components:
+#   - !Remove type: SomeUnwantedComponent
+#
+# ПРИМЕР 3: работа с последовательностями (списками) и словарями.
+#
+# - type: !PartialOnly emote
+#   id: Scream
+#   blacklist:
+#     tags:
+#     - !Remove SomeTag          # убрать конкретное значение из списка
+#   availableInCrit: false       # простое присвоение поля словаря
+#
+# - type: !PartialOnly entity
+#   id: SomeEntity
+#   components:
+#   - type: SomeComponent
+#     someList:
+#     - !Clear                   # очистить список целиком, потом добавлять заново
+#     - !Index:0 FirstElement    # вставить элемент на позицию 0 (отрицательные = с конца)
+#     - SecondElement            # обычное добавление в конец
+#     - !Remove UnwantedElement  # удалить элемент по значению
+#     - !CombineIndex:0          # изменить элемент по индексу (список маппингов)
+#       key: newValue
+#
+# Для словарей: !Remove у значения убирает ключ целиком, !Clear узла маппинга
+# очищает весь словарь.
+#
+# Тег !PartialModified ставит движок сам — руками его писать не нужно.
+#
+# Несколько директорий/источников: PartialDirectory(path, index) — partial-и с меньшим
+# index применяются первыми (см. EntryPoint.cs).
