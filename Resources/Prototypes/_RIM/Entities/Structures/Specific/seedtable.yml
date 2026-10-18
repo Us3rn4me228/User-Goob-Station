@@ -2,9 +2,9 @@
 
 - type: entity
   id: SeedTable
-  name: seed table
+  name: ent-SeedTable
   parent: BaseStructure
-  description: Extracts seeds from produce.
+  description: ent-SeedTable.desc
   components:
   - type: Sprite
     sprite: _Goobstation/Structures/Specific/seedtable.rsi
