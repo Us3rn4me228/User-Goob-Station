@@ -1,0 +1,67 @@
+# SPDX-License-Identifier: MIT
+
+- type: entity
+  id: SeedTable
+  name: seed table
+  parent: BaseStructure
+  description: Extracts seeds from produce.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Structures/Specific/seedtable.rsi
+    state: seedtable
+    snapCardinals: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.4,0.25,0.4"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: ContainerContainer
+    containers:
+      seeds: !type:Container
+  - type: SeedPress
+    insertSound:
+      path: /Audio/Effects/woodenclosetopen.ogg
+    extractSound:
+      path: /Audio/Items/Culinary/chop.ogg
+  - type: Construction
+    graph: SeedGraph
+    node: SeedTableNode
+
+- type: construction
+  id: SeedTable
+  graph: SeedGraph
+  targetNode: SeedTableNode
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: constructionGraph
+  id: SeedGraph
+  graph:
+  - node: start
+    edges:
+    - to: SeedTableNode
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: WoodPlank
+        amount: 5
+        doAfter: 1
+      - material: FloorTileGrass
+        amount: 3
+        doAfter: 1
+  - node: SeedTableNode
+    entity: SeedTable

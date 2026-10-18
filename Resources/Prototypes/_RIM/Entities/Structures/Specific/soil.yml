@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseItem
   id: ClumpSoil
-  name: ent-ClumpSoil
-  description: ent-ClumpSoil.desc
+  name: clump of soil
+  description: A handful of soil. Doesn't seem useful... yet.
   components:
   - type: Sprite
     sprite: Structures/Hydroponics/misc.rsi
@@ -17,8 +17,8 @@
 
 - type: entity
   id: PileSoil
-  name: ent-PileSoil
-  description: ent-PileSoil.desc
+  name: soil pile
+  description: Just add another two clumps.
   components:
   - type: Clickable
   - type: InteractionOutline
@@ -53,9 +53,9 @@
     noRot: true
   - type: Transform
     anchored: true
-  # - type: Construction
-  #   graph: SoilPile
-  #   node: start
+  - type: Construction
+    graph: SoilPile
+    node: start
 
 - type: constructionGraph
   id: SoilPile
@@ -67,10 +67,10 @@
     - to: done
       steps:
       - tag: SoilClump
-        name: construction-graph-tag-soil-clump
+        name: clump of soil
         doAfter: 2
       - tag: SoilClump
-        name: construction-graph-tag-soil-clump
+        name: clump of soil
         doAfter: 2
       completed:
       - !type:SnapToGrid
