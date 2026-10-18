@@ -49,6 +49,10 @@ namespace Content.Shared.Entry
 
         public override void Init()
         {
+            // Goobstation - partial prototypes: files in this dir modify existing prototypes by ID
+            // instead of throwing "Duplicate ID". Must be registered before LoadDefaultPrototypes().
+            _prototypeManager.PartialDirectory(new ResPath("/Prototypes/_RIM/Partials/"), 0);
+
             IgnorePrototypes();
         }
 

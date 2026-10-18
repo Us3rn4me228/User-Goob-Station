@@ -9,7 +9,7 @@ namespace Content.Server._RIM.Botany;
 public sealed partial class SeedPressComponent : Component
 {
     [DataField]
-    public string ContainerId = "storage";
+    public string ContainerId = "seeds";
 
     [DataField]
     public int MaxEntities = 10;
