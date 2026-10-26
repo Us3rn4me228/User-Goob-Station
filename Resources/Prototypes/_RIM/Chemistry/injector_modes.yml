@@ -1,0 +1,10 @@
+- type: injectorMode
+  parent: [ BaseSyringeMode, BaseDrawMode ]
+  id: BloodShotgunDrawMode
+  mobTime: 1              # he sucked him dry ahh mode
+  delayPerVolume: 0.02
+  ignoreDelayForVolume: 15
+  transferAmounts:
+  - 50
+  - 100
+  - 150

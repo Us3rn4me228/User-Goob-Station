@@ -16,3 +16,11 @@
     speedModifier: 0.75
   - type: TileDigging
     delay: 2.5
+
+- type: !PartialOnly entity
+  id: WelderIndustrial
+  components:
+  - type: Tag
+    tags:
+    - IndustrialWelder
+

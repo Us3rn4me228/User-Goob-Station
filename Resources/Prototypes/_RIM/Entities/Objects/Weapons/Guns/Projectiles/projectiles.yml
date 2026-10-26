@@ -1,0 +1,62 @@
+- type: entity
+  id: ProjectileFlamethrower
+  categories: [ HideSpawnMenu ]
+  parent: BaseBullet
+  components:
+  - type: Projectile
+    penetrateMobs: true # Goob Add - passes through mobs, but is stopped by walls, windows and closed airlocks
+    damage:
+      types:
+        Heat: 2
+    impactEffect: null
+    soundHit: null
+  - type: IgniteOnCollide
+    fireStacks: 1
+    count: 30 # Goob Add - so the jet can ignite every mob it passes through (default is 1)
+  - type: PointLight
+    radius: 1.5
+    energy: 2
+  - type: TimedDespawn
+    lifetime: 0.1 # ~4 tiles at the default projectile speed of 40
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/magic.rsi
+    layers:
+    - state: fireball
+      shader: unshaded
+
+- type: entity
+  id: ProjectileFlamethrowerSpread
+  categories: [ HideSpawnMenu ]
+  parent: ProjectileFlamethrower
+  components:
+  - type: ProjectileSpread
+    proto: ProjectileFlamethrower
+    count: 3
+    spread: 6
+
+- type: entity
+  parent: BaseBullet
+  id: BloodShot
+  categories: [ HideSpawnMenu ]
+  name: blood shot
+  components:
+  - type: Sprite
+    color: red
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 7.5
+        Slash: 7.5
+      woundSeverityMultipliers:
+        Piercing: 1
+        Slash: 1.5
+
+- type: entity
+  parent: BloodShot
+  id: BloodShotSpread
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ProjectileSpread
+    proto: BloodShot
+    count: 5
+    spread: 17

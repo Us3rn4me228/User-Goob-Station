@@ -1,0 +1,28 @@
+- type: constructionGraph
+  id: WeaponImprovisedFlamethrower
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: frame
+          steps:
+            - material: Steel
+              amount: 2
+              doAfter: 2
+            - tag: IndustrialWelder
+              name: construction-step-weld-tool
+              doAfter: 3
+
+    - node: frame
+      entity: WeaponImprovisedFlamethrowerFrame
+      edges:
+        - to: icon
+          steps:
+            - tag: GlassBeaker
+              name: construction-step-insert-beaker
+              doAfter: 2
+            - tool: Welding
+              doAfter: 3
+
+    - node: icon
+      entity: WeaponImprovisedFlamethrower

@@ -1,0 +1,7 @@
+- type: construction
+  id: WeaponImprovisedFlamethrower
+  graph: WeaponImprovisedFlamethrower
+  startNode: start
+  targetNode: icon
+  category: construction-category-weapons
+  objectType: Item

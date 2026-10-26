@@ -1,0 +1,10 @@
+- type: entity
+  id: WeaponCryoPistol
+  parent: WeaponWaterPistol
+  components:
+  - type: SolutionAmmoProvider
+    solutionId: chamber
+    proto: ProjectileIcicle
+  - type: ReagentWhitelist
+    whitelist:
+    - Cryoxadone

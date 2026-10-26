@@ -1,0 +1,5 @@
+- type: Tag
+  id: WeaponCryoPistolUpgradeKit # ConstructionGraph: UpgradeWeaponCryoPistol
+
+- type: Tag
+  id: IndustrialWelder

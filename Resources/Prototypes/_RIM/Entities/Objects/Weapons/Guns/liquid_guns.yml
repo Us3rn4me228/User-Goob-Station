@@ -1,0 +1,230 @@
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseLiquidGun
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      chamber:
+        maxVol: 100
+  - type: SolutionTransfer
+    transferAmount: 10
+    maxTransferAmount: 50
+    minTransferAmount: 10
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: DrawableSolution
+    solution: chamber
+  - type: DrainableSolution
+    solution: chamber
+  - type: RefillableSolution
+    solution: chamber
+  - type: ExaminableSolution
+    solution: chamber
+  - type: SolutionItemStatus
+    solution: chamber
+  - type: RestrictGunshotsByUserTag
+    doesntContain:
+    - Oni
+    messages:
+    - oni-cannot-shoot-guns-1
+    - oni-cannot-shoot-guns-2
+    - oni-cannot-shoot-guns-3
+
+- type: entity
+  parent: BaseLiquidGun
+  id: WeaponBloodShotgun
+  name: blood shotgun
+  description: A crude shotgun that turns blood into a storm of iron pellets. Nice.
+  components:
+  - type: Sprite
+    sprite: _RIM/Objects/Weapons/Guns/blood_shotgun.rsi
+    layers:
+    - state: icon
+      map: [ "enum.GunVisualLayers.Base" ]
+    - state: fill1
+      map: [ "enum.SolutionContainerLayers.Fill" ]
+      visible: false
+  - type: Item
+    sprite: _RIM/Objects/Weapons/Guns/blood_shotgun.rsi
+    size: Large
+    shape:
+    - 0,0,4,1
+  - type: Clothing
+    sprite: _RIM/Objects/Weapons/Guns/blood_shotgun.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Gun
+    fireRate: 0.8
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Effects/Fluids/splat.ogg
+  - type: SolutionContainerManager
+    solutions:
+      chamber:
+        maxVol: 150 # 15 shots at fireCost 10
+  - type: SolutionAmmoProvider
+    solutionId: chamber
+    proto: BloodShotSpread
+    fireCost: 10
+  - type: ReagentWhitelist
+    whitelist:
+    - Blood
+    - CopperBlood
+    - InsectBlood
+    - Slime
+    - AmmoniaBlood
+    - ZombieBlood
+    - BlackBlood
+    - Sap
+    - BloodChangeling
+  - type: Injector # Goob Add - lets you draw blood out of mobs like a syringe
+    solutionName: chamber
+    activeModeProtoId: BloodShotgunDrawMode
+    allowedModes:
+    - BloodShotgunDrawMode
+    reagentWhitelist: # only blood gets drawn, other reagents stay in the target
+    - Blood
+    - CopperBlood
+    - InsectBlood
+    - Slime
+    - AmmoniaBlood
+    - ZombieBlood
+    - BlackBlood
+    - Sap
+    - BloodChangeling
+    currentTransferAmount: 150
+  - type: EmitSoundOnPickup
+    sound:
+      collection: ShotgunsPickUp
+  - type: EmitSoundOnDrop
+    sound:
+      collection: ShotgunsDrop
+  - type: EmitSoundOnLand
+    sound:
+      collection: ShotgunsDrop
+  - type: AltFireMelee
+    attackType: Heavy
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 5
+        Piercing: 10
+    angle: 0
+    wideAnimationRotation: 90 # -90 if it takes bayonets (hits with muzzle) 90 if not (hits with butt)
+    soundHit:
+      collection: MetalThud
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 3         # Количество уровней жидкости (от 1 до 5)
+    fillBaseName: fill
+
+- type: entity
+  parent: BaseLiquidGun
+  id: WeaponImprovisedFlamethrower
+  name: improvised flamethrower
+  description: A welder, modified into a crude flame thowing weapon. And be careful with this one, it's easy to spill it's content outside.
+  components:
+  - type: Sprite
+    sprite: _RIM/Objects/Weapons/Guns/improvised_flamethrower.rsi
+    state: icon
+  - type: Item
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: -4,-4
+    size: Large
+  - type: Gun
+    cameraRecoilScalar: 0 #no recoil
+    fireRate: 5
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/water_spray.ogg
+  - type: Spillable
+    solution: chamber
+  - type: SolutionAmmoProvider
+    solutionId: chamber
+    proto: ProjectileFlamethrowerSpread
+    fireCost: 5
+  - type: ReagentWhitelist
+    whitelist:
+    - Napalm
+  - type: SolutionTransfer
+    transferAmount: 10
+    maxTransferAmount: 100
+    minTransferAmount: 10
+    canChangeTransferAmount: true
+  - type: Construction
+    graph: WeaponImprovisedFlamethrower
+    node: icon
+
+- type: entity
+  parent: BaseItem
+  id: WeaponImprovisedFlamethrowerFrame
+  name: improvised flamethrower frame
+  description: A crude metal tube. It looks like it needs a beaker and some welding.
+  components:
+  - type: Sprite
+    sprite: _RIM/Objects/Weapons/Guns/improvised_flamethrower.rsi
+    state: frame
+  - type: Construction
+    graph: WeaponImprovisedFlamethrower
+    node: frame
+
+- type: entity
+  parent: [ BaseLiquidGun, BaseGunWieldable, BaseMajorContraband ] # OH - decloner copy that runs on artifexium instead of a power cell
+  id: WeaponArtifexiumDecloner
+  name: artifexium decloner
+  description: Is this a war crime? Absolutely. This one is charged with artifexium instead of a power cell.
+  components:
+  - type: Sprite
+    sprite: _Shitmed/Objects/Weapons/Guns/Battery/decloner.rsi
+    layers:
+    - state: base
+      map: [ "enum.GunVisualLayers.Base" ]
+  - type: Item
+    sprite: _Shitmed/Objects/Weapons/Guns/Battery/decloner.rsi
+    size: Large
+    shape:
+    - 0,0,5,1
+  - type: Clothing
+    sprite: _Shitmed/Objects/Weapons/Guns/Battery/decloner.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Gun
+    fireRate: 2
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser.ogg
+  - type: SolutionContainerManager
+    solutions:
+      chamber:
+        maxVol: 150 # 15 shots at fireCost 10
+  - type: SolutionAmmoProvider
+    solutionId: chamber
+    proto: BulletDeclone
+    fireCost: 10
+  - type: ReagentWhitelist # only artifexium is accepted
+    whitelist:
+    - Artifexium
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 12
+    angle: 0
+    wideAnimationRotation: 90
+    soundHit:
+      collection: MetalThud
