@@ -1,18 +1,17 @@
-using Content.Server._RIM.Projectiles.Components;
-using Content.Server.Body.Components;
-using Content.Server.Chemistry.Components.SolutionManager;
+using Content.Shared._RIM.Projectiles.Components;
+using Content.Shared.Body.Components; // Если BloodstreamComponent переехал в Server, используй Content.Server.Body.Components
+using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.FixedPoint;
+using Content.Goobstation.Maths.FixedPoint;
 using Content.Shared.Projectiles;
 using Robust.Shared.GameObjects;
-using Robust.Shared.Map;
 
 namespace Content.Server._RIM.Projectiles.Systems;
 
 public sealed class LiquidPulseProjectileSystem : EntitySystem
 {
     [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly IEntityLookup _lookup = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
 
     public override void Initialize()
     {
@@ -22,6 +21,9 @@ public sealed class LiquidPulseProjectileSystem : EntitySystem
 
     private void OnProjectileHit(EntityUid uid, LiquidPulseProjectileComponent comp, ref ProjectileHitEvent args)
     {
+        if (TerminatingOrDeleted(uid))
+            return;
+
         if (!_solution.TryGetSolution(uid, comp.Solution, out var sol, out _))
             return;
 
@@ -29,15 +31,16 @@ public sealed class LiquidPulseProjectileSystem : EntitySystem
         if (currentVolume <= FixedPoint2.Zero)
             return;
 
-        var volumeToInject = FixedPoint2.Min(comp.InjectVolume, currentVolume);
+        var volumeToInject = FixedPoint2.Min((FixedPoint2)comp.InjectVolume, currentVolume);
 
         var xform = Transform(uid);
-
         var lookup = _lookup.GetEntitiesInRange(xform.Coordinates, comp.InjectRadius);
 
         var targets = 0;
         foreach (var target in lookup)
         {
+            if (TerminatingOrDeleted(target)) continue;
+
             if (HasComp<BloodstreamComponent>(target) || HasComp<InjectableSolutionComponent>(target))
                 targets++;
         }
@@ -49,6 +52,8 @@ public sealed class LiquidPulseProjectileSystem : EntitySystem
 
         foreach (var target in lookup)
         {
+            if (TerminatingOrDeleted(target)) continue;
+
             if (!HasComp<BloodstreamComponent>(target) && !HasComp<InjectableSolutionComponent>(target))
                 continue;
 

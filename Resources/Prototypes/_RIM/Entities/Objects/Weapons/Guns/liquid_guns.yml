@@ -181,50 +181,50 @@
     node: frame
 
 - type: entity
-  parent: [ BaseLiquidGun, BaseGunWieldable, BaseMajorContraband ] # OH - decloner copy that runs on artifexium instead of a power cell
-  id: WeaponArtifexiumDecloner
-  name: artifexium decloner
-  description: Is this a war crime? Absolutely. This one is charged with artifexium instead of a power cell.
+  parent: [ BaseLiquidGun, BaseMajorContraband ] # OH - decloner copy that runs on artifexium instead of a power cell
+  id: WeaponArtifactScepter
+  name: artifact scepter
+  description: Liquid bending device from ancient times. This one is a weapon, yes.
   components:
   - type: Sprite
-    sprite: _Shitmed/Objects/Weapons/Guns/Battery/decloner.rsi
+    sprite: _RIM/Objects/Weapons/Guns/scepter.rsi
     layers:
-    - state: base
+    - state: icon
       map: [ "enum.GunVisualLayers.Base" ]
+    - state: fill1
+      map: [ "enum.SolutionContainerLayers.Fill" ]
+      visible: false
   - type: Item
-    sprite: _Shitmed/Objects/Weapons/Guns/Battery/decloner.rsi
-    size: Large
-    shape:
-    - 0,0,5,1
-  - type: Clothing
-    sprite: _Shitmed/Objects/Weapons/Guns/Battery/decloner.rsi
-    quickEquip: false
-    slots:
-    - Back
-    - suitStorage
+    size: Normal
+    sprite: Objects/Specific/Xenoarchaeology/item_artifacts.rsi
   - type: Gun
     fireRate: 2
     selectedMode: SemiAuto
     availableModes:
     - SemiAuto
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/laser.ogg
+      path: /Audio/Effects/Fluids/splat.ogg
   - type: SolutionContainerManager
     solutions:
       chamber:
         maxVol: 150 # 15 shots at fireCost 10
   - type: SolutionAmmoProvider
     solutionId: chamber
-    proto: BulletDeclone
-    fireCost: 10
-  - type: ReagentWhitelist # only artifexium is accepted
-    whitelist:
-    - Artifexium
+    proto: ProjectileLiquidAnomaly
+    fireCost: 50
   - type: MeleeWeapon
     damage:
       types:
-        Blunt: 12
+        Blunt: 10
     angle: 0
     wideAnimationRotation: 90
     soundHit:
       collection: MetalThud
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 3
+    fillBaseName: fill
+  - type: Clothing
+    quickEquip: false
+    slots:
+    - Belt

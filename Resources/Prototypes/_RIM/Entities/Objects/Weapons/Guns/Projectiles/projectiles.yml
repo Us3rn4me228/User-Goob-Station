@@ -60,3 +60,26 @@
     proto: BloodShot
     count: 5
     spread: 17
+
+- type: entity
+  parent: BaseBullet # Чистая база без Vapor
+  id: ProjectileLiquidAnomaly
+  name: liquid pulse
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/water_shot.rsi
+    layers:
+    - state: icon
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 0
+  - type: SolutionContainerManager
+    solutions:
+      vapor:
+        maxVol: 50
+  - type: LiquidPulseProjectile
+    solution: vapor
+    injectVolume: 15
+    injectRadius: 2

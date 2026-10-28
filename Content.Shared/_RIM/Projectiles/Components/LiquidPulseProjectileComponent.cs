@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Server._RIM.Projectiles.Components;
+namespace Content.Shared._RIM.Projectiles.Components;
 
 [RegisterComponent, NetworkedComponent]
 public sealed partial class LiquidPulseProjectileComponent : Component
