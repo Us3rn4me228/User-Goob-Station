@@ -1,0 +1,19 @@
+- type: listing
+  id: SpellbookBloodShootgun
+  name: spellbook-blood-shotgun-name
+  description: spellbook-blood-shotgun-desc
+  productEntity: WeaponBloodShotgun
+  cost:
+    WizCoin: 2
+  categories:
+  - SpellbookEquipment
+
+- type: listing
+  id: SpellbookArtifactScepter
+  name: spellbook-artifact-scepter-name
+  description: spellbook-artifact-scepter-desc
+  productEntity: WeaponArtifactScepter
+  cost:
+    WizCoin: 2
+  categories:
+  - SpellbookEquipment
